@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通知 - 北京师范大学亚太实验学校1+3班</title>
+    <link rel="stylesheet" href="/13classweb/style.css">
+</head>
+<body>
+    <header>
+        <h1>北京师范大学亚太实验学校1+3班</h1>
+        <nav>
+            <ul>
+                <li><a href="/13classweb/index.html">整体介绍</a></li>
+                <li><a href="/13classweb/album.html">班级相册</a></li>
+                <li><a href="/13classweb/message.html">留言板</a></li>
+                <li><a href="/13classweb/notice.html" class="active">通知</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h2>班级通知</h2>
+            <div id="loading-message" class="loading">正在加载通知...</div>
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            <div class="notice-list" id="noticeList">
+                <!-- 通知内容将通过JavaScript动态加载 -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 HJL Hello1145</p>
+    </footer>
+
+    <script src="notice.js"></script>
+</body>
+</html>

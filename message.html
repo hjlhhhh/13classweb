@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板 - 北京师范大学亚太实验学校1+3班</title>
+    <link rel="stylesheet" href="/13classweb/style.css">
+</head>
+<body>
+    <header>
+        <h1>北京师范大学亚太实验学校1+3班</h1>
+        <nav>
+            <ul>
+                <li><a href="/13classweb/index.html">整体介绍</a></li>
+                <li><a href="/13classweb/album.html">班级相册</a></li>
+                <li><a href="/13classweb/message.html" class="active">留言板</a></li>
+                <li><a href="/13classweb/notice.html">通知</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h2>留言板</h2>
+            
+            <form id="message-form">
+                <div class="form-group">
+                    <label for="message-author">您的姓名:</label>
+                    <input type="text" id="message-author" placeholder="请输入您的姓名" required>
+                </div>
+                <div class="form-group">
+                    <label for="message-content">留言内容:</label>
+                    <textarea id="message-content" placeholder="请输入您的留言..." required></textarea>
+                </div>
+                <button type="submit">提交留言</button>
+            </form>
+            
+            <div class="message-list" id="messageList">
+                <!-- 留言列表将通过JavaScript动态加载 -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 HJL Hello1145</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 设置留言板功能
+        function setupMessageBoard() {
+            const messageForm = document.getElementById('message-form');
+            const messageContent = document.getElementById('message-content');
+            const messageAuthor = document.getElementById('message-author');
+            const messageList = document.getElementById('messageList');
+            
+            // 从本地存储加载留言
+            loadMessages();
+            
+            messageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const content = messageContent.value.trim();
+                const author = messageAuthor.value.trim() || '匿名';
+                
+                if(content) {
+                    addMessage(content, author);
+                    messageContent.value = '';
+                    messageAuthor.value = '';
+                }
+            });
+            
+            function addMessage(content, author) {
+                const messages = getMessagesFromStorage();
+                const newMessage = {
+                    id: Date.now(),
+                    content: content,
+                    timestamp: new Date().toLocaleString('zh-CN'),
+                    author: author
+                };
+                
+                messages.unshift(newMessage); // 新留言放在最前面
+                saveMessagesToStorage(messages);
+                renderMessages();
+            }
+            
+            function getMessagesFromStorage() {
+                return JSON.parse(localStorage.getItem('classMessages')) || [];
+            }
+            
+            function saveMessagesToStorage(messages) {
+                localStorage.setItem('classMessages', JSON.stringify(messages));
+            }
+            
+            function renderMessages() {
+                const messages = getMessagesFromStorage();
+                messageList.innerHTML = '';
+                
+                if(messages.length === 0) {
+                    messageList.innerHTML = '<p class="no-message">暂无留言，快来留下第一条吧！</p>';
+                    return;
+                }
+                
+                messages.forEach(message => {
+                    const messageItem = document.createElement('div');
+                    messageItem.className = 'message-item';
+                    messageItem.innerHTML = `
+                        <div class="message-content">${message.content}</div>
+                        <div class="message-meta">${message.author} - ${message.timestamp}</div>
+                    `;
+                    messageList.appendChild(messageItem);
+                });
+            }
+            
+            function loadMessages() {
+                renderMessages();
+            }
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            setupMessageBoard();
+        });
+    </script>
+</body>
+</html>

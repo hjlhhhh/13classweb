@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班级相册 - 北京师范大学亚太实验学校1+3班</title>
+    <link rel="stylesheet" href="/13classweb/style.css">
+</head>
+<body>
+    <header>
+        <h1>北京师范大学亚太实验学校1+3班</h1>
+        <nav>
+            <ul>
+                <li><a href="/13classweb/index.html">整体介绍</a></li>
+                <li><a href="/13classweb/album.html" class="active">班级相册</a></li>
+                <li><a href="/13classweb/message.html">留言板</a></li>
+                <li><a href="/13classweb/notice.html">通知</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h2>班级相册</h2>
+            
+            <!-- 媒体类型筛选 -->
+            <div class="media-filter">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="image">图片</button>
+                <button class="filter-btn" data-filter="video">视频</button>
+            </div>
+            
+            <div id="loading-message" class="loading">正在加载媒体内容...</div>
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            <div class="media-grid" id="mediaGrid">
+                <!-- 媒体内容将通过JavaScript动态加载 -->
+            </div>
+        </section>
+    </main>
+
+    <!-- 媒体查看模态框 -->
+    <div id="mediaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-media-container">
+                <img id="modalImage" src="" alt="" style="display: none;">
+                <video id="modalVideo" controls style="display: none;">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <div id="modalMeta"></div>
+                <p id="modalDescription"></p>
+            </div>
+            <div class="modal-nav">
+                <button id="prevBtn" class="nav-btn">&#10094;</button>
+                <button id="nextBtn" class="nav-btn">&#10095;</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 HJL Hello1145</p>
+    </footer>
+
+    <script src="album.js"></script>
+</body>
+</html>
