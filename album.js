@@ -23,11 +23,11 @@ function loadMedia() {
     
     // 同时加载图片和视频数据
     Promise.all([
-        fetch('/13classweb/data/photos.json').then(response => {
+        fetch('./data/photos.json').then(response => {
             if (!response.ok) throw new Error('图片数据加载失败');
             return response.json();
         }),
-        fetch('/13classweb/data/videos.json').then(response => {
+        fetch('./data/videos.json').then(response => {
             if (!response.ok) throw new Error('视频数据加载失败');
             return response.json();
         })
@@ -436,5 +436,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initModalEvents();
 
 });
+
 
 
